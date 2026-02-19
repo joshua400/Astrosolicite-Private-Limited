@@ -4,44 +4,48 @@
 
 @layer base {
   :root {
-    --background: 0 0% 2%;
-    --foreground: 0 0% 96%;
+    /* ── Astrosolicite Tech Theme (Deep Space & High Contrast) ── */
+    --background: 220 30% 2%;
+    --foreground: 220 20% 98%;
 
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 96%;
+    --card: 220 25% 4%;
+    --card-foreground: 220 20% 98%;
 
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 96%;
+    --popover: 220 25% 4%;
+    --popover-foreground: 220 20% 98%;
 
-    --primary: 180 80% 50%;
-    --primary-foreground: 0 0% 2%;
+    /* Orbital Cyan (#00e5ff) */
+    --primary: 186 100% 50%;
+    --primary-foreground: 220 30% 2%;
 
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 96%;
+    --secondary: 220 15% 10%;
+    --secondary-foreground: 220 20% 90%;
 
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 55%;
+    --muted: 220 15% 12%;
+    --muted-foreground: 220 10% 60%;
 
-    --accent: 180 80% 50%;
-    --accent-foreground: 0 0% 2%;
+    /* Precision Gold (#ffd700) */
+    --accent: 51 100% 50%;
+    --accent-foreground: 220 30% 2%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 96%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 220 20% 98%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 180 80% 50%;
+    --border: 220 20% 12%;
+    --input: 220 20% 12%;
+    --ring: 186 100% 50%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 4%;
-    --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 180 80% 50%;
-    --sidebar-primary-foreground: 0 0% 2%;
-    --sidebar-accent: 0 0% 10%;
-    --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 180 80% 50%;
+    /* Extra tokens */
+    --shield-silver: 220 10% 85%;
+    --nebula-blue: 215 80% 60%;
+    --warning-gold: 45 100% 51%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
   }
 }
 
@@ -52,56 +56,82 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
 @layer utilities {
+  .font-display {
+    font-family: 'Instrument Serif', serif;
+  }
+
+  .font-mono-tech {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
   .text-gradient {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(180 60% 75%));
+    background: linear-gradient(135deg, hsl(var(--primary)), #00b8d4, #0097a7);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .hero-title {
-    font-family: 'Georgia', serif;
-    letter-spacing: 0.12em;
-    line-height: 1.05;
+  .glass-panel {
+    background: rgba(10, 15, 25, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 229, 255, 0.1);
   }
 
-  .star-bg {
-    background-image: 
-      radial-gradient(1px 1px at 10% 12%, rgba(255,255,255,0.6) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 22% 48%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 38% 8%, rgba(255,255,255,0.55) 0%, transparent 100%),
-      radial-gradient(2px 2px at 52% 72%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 64% 28%, rgba(255,255,255,0.5) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 78% 55%, rgba(255,255,255,0.45) 0%, transparent 100%),
-      radial-gradient(1px 1px at 88% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
-      radial-gradient(1px 1px at 95% 80%, rgba(255,255,255,0.35) 0%, transparent 100%),
-      radial-gradient(2px 2px at 5% 65%, rgba(255,255,255,0.25) 0%, transparent 100%),
-      radial-gradient(1px 1px at 45% 90%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 72% 4%, rgba(255,255,255,0.5) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 16% 82%, rgba(255,255,255,0.3) 0%, transparent 100%);
+  .shield-pulse {
+    animation: shield-pulse 4s ease-in-out infinite;
   }
 
-  .glow-primary {
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.3), 0 0 60px hsl(var(--primary) / 0.1);
+  @keyframes shield-pulse {
+
+    0%,
+    100% {
+      opacity: 0.1;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 0.3;
+      transform: scale(1.05);
+    }
   }
 
-  .border-glow {
-    border-color: hsl(var(--primary) / 0.4);
-    box-shadow: 0 0 12px hsl(var(--primary) / 0.15), inset 0 0 12px hsl(var(--primary) / 0.05);
+  .scanline {
+    width: 100%;
+    height: 100px;
+    z-index: 10;
+    background: linear-gradient(0deg, transparent 0%, rgba(0, 229, 255, 0.05) 50%, transparent 100%);
+    opacity: 0.1;
+    position: absolute;
+    bottom: 100%;
+    animation: scanline 8s linear infinite;
   }
 
-  @keyframes twinkle-anim {
-    0%, 100% { opacity: 0.15; }
-    50% { opacity: 0.9; }
+  @keyframes scanline {
+    0% {
+      bottom: 100%;
+    }
+
+    100% {
+      bottom: -100px;
+    }
   }
 
-  .animate-fade-in {
-    animation: fade-in 0.3s ease-out;
+  .noise-bg {
+    position: relative;
+  }
+
+  .noise-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
   }
 }
-
