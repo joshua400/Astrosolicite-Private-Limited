@@ -1,4 +1,7 @@
+import { useEffect, useRef, memo } from "react";
 import { Navbar } from "@/components/Navbar";
+import { default as About } from "@/components/About";
+import { default as Founder } from "@/components/Founder";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -7,7 +10,8 @@ import {
   Eye, Cpu, Activity, BarChart3, Mail, MapPin, Linkedin, Twitter, PlayCircle,
   FileText, ExternalLink
 } from "lucide-react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { MotionReveal, SpotlightCard, use3DTilt, TextScramble, Magnetic, OrbitalDecor, CharReveal } from "@/hooks/useAnimations";
 import heroVideo from "@/assets/hero-reveal.mp4";
 import logo from "@/assets/logo.jpeg";
 
@@ -15,6 +19,7 @@ const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
 
 const Index = () => {
   const { scrollY } = useScroll();
+  const heroTiltRef = use3DTilt();
 
   // Smooth spring-wrapped scroll values for buttery animation
   const smoothScrollY = useSpring(scrollY, springConfig);
@@ -28,9 +33,23 @@ const Index = () => {
   const challengeScale = useTransform(smoothScrollY, [300, 800], [0.9, 1]);
   const challengeOpacity = useTransform(smoothScrollY, [300, 600], [0, 1]);
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
+
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden noise-bg selection:bg-primary/30">
-      <div className="scanline" />
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden noise-bg selection:bg-primary/30 cursor-none">
+      <CustomCursor mouseX={mouseX} mouseY={mouseY} />
+      <BackgroundDecor />
+      <div className="scanline pointer-events-none" />
       <Navbar />
 
       {/* ── [HOME] Hero Section ── */}
@@ -54,6 +73,7 @@ const Index = () => {
         </motion.div>
 
         <motion.div
+          ref={heroTiltRef}
           style={{ opacity: heroOpacity, y: heroTranslateY }}
           className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center text-center gap-8 will-change-transform"
         >
@@ -63,18 +83,22 @@ const Index = () => {
             <span className="w-10 h-[1px] bg-primary" />
           </div>
 
-          <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] text-foreground leading-[0.95] tracking-wide">
-            Intelligent{" "}
-            <span className="text-gradient font-italic">Orbital Protection</span>
+          <h1 className="font-display text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] text-foreground leading-[1.1] md:leading-[0.95] tracking-wide">
+            <CharReveal text="Intelligent" />{" "}
+            <span className="text-gradient font-italic block sm:inline">
+              <CharReveal text="Orbital Protection" delay={0.3} />
+            </span>
           </h1>
 
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed max-w-2xl">
             Advanced autonomous debris mitigation and satellite protection systems engineered for sustainable space operations.
           </p>
 
-          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-7 text-[11px] font-mono-tech tracking-[0.2em] uppercase rounded-none shadow-[4px_4px_0px_#00b8d4] mt-2">
-            Explore Our Technology <ArrowRight size={14} className="ml-2" />
-          </Button>
+          <Magnetic>
+            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-7 text-[11px] font-mono-tech tracking-[0.2em] uppercase rounded-none shadow-[4px_4px_0px_#00b8d4] mt-2 group">
+              Explore Our Technology <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </Magnetic>
         </motion.div>
 
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50 z-10">
@@ -82,6 +106,10 @@ const Index = () => {
           <ChevronDown size={14} className="animate-bounce" />
         </div>
       </section>
+
+      <About />
+
+      <Founder />
 
       {/* ── The Orbital Challenge ── */}
       <motion.section
@@ -125,15 +153,17 @@ const Index = () => {
       {/* ── [TECHNOLOGY] Flagship Innovation ── */}
       <section id="technology" className="py-32 px-6 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
+          <MotionReveal className="text-center mb-20">
             <span className="text-primary text-[11px] font-mono-tech tracking-[0.3em] uppercase mb-4 block">Our Flagship Innovation</span>
-            <h2 className="font-display text-5xl md:text-6xl mb-6">Orbital Debris Shielding System <span className="text-accent font-italic">(ODSS)</span></h2>
+            <h2 className="font-display text-3xl md:text-5xl lg:text-6xl mb-6">
+              <CharReveal text="Orbital Debris Shielding System" /> <span className="text-accent font-italic text-2xl md:text-4xl lg:text-5xl block md:inline mt-2 md:mt-0">(ODSS)</span>
+            </h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
               Astrosolicite introduces the Wrap Debris Satellite (WDS) — an autonomous companion-based architecture that enhances satellite survivability.
             </p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8">
+          </MotionReveal>
+          <OrbitalDecor />
+          <div className="grid lg:grid-cols-3 gap-8 relative z-10">
             {[
               { icon: <Search />, title: "Tracking", desc: "Real-time debris tracking & classification" },
               { icon: <Cpu />, title: "AI-Powered", desc: "Trajectory prediction modeling" },
@@ -142,11 +172,13 @@ const Index = () => {
               { icon: <Activity />, title: "Validated", desc: "Simulation-validated engineering" },
               { icon: <Globe />, title: "Awareness", desc: "Multi-sensor situational awareness" },
             ].map((item, i) => (
-              <div key={i} className="glass-panel p-8 hover:bg-white/5 transition-all group border-primary/5 hover:border-primary/20">
-                <div className="text-primary mb-5 group-hover:scale-110 transition-transform">{item.icon}</div>
-                <h3 className="font-bold text-lg mb-3 tracking-wide">{item.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
-              </div>
+              <MotionReveal key={i} delay={i * 0.1}>
+                <SpotlightCard className="p-8 hover:bg-white/5 transition-all group border-primary/5 hover:border-primary/20 h-full">
+                  <div className="text-primary mb-5 group-hover:scale-110 transition-transform">{item.icon}</div>
+                  <h3 className="font-bold text-lg mb-3 tracking-wide">{item.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+                </SpotlightCard>
+              </MotionReveal>
             ))}
           </div>
         </div>
@@ -193,17 +225,20 @@ const Index = () => {
       {/* ── [SOLUTIONS] ── */}
       <section id="solutions" className="py-32 px-6 relative">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row gap-12 items-end mb-20">
+          <MotionReveal className="flex flex-col lg:flex-row gap-12 items-end mb-20">
             <div className="flex-1">
               <span className="text-primary text-[11px] font-mono-tech tracking-[0.3em] uppercase mb-4 block">Strategic Applications</span>
-              <h2 className="font-display text-5xl">Solutions for the <span className="italic text-gradient">Space Frontier</span></h2>
+              <h2 className="font-display text-3xl md:text-5xl leading-tight">
+                <CharReveal text="Solutions for the" /> <br className="md:hidden" /> <span className="italic text-gradient"><CharReveal text="Space Frontier" delay={0.3} /></span>
+              </h2>
             </div>
             <p className="flex-1 text-muted-foreground max-w-lg">
               Protecting critical infrastructure across commercial, defense, and collective orbital domains.
             </p>
-          </div>
+          </MotionReveal>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <OrbitalDecor />
+          <div className="grid md:grid-cols-3 gap-8 relative z-10">
             {[
               {
                 title: "Satellite Operators",
@@ -221,18 +256,20 @@ const Index = () => {
                 items: ["Scalable debris management", "Distributed STM support", "Real-time collision avoidance"]
               },
             ].map((sol, i) => (
-              <div key={i} className="p-10 border border-border bg-black/20 hover:border-primary/30 transition-all flex flex-col h-full">
-                <div className="text-primary mb-6">{sol.icon}</div>
-                <h3 className="font-bold text-xl mb-6">{sol.title}</h3>
-                <ul className="space-y-4 flex-1">
-                  {sol.items.map((item, j) => (
-                    <li key={j} className="text-muted-foreground text-sm flex gap-3">
-                      <ArrowRight size={14} className="text-primary shrink-0 mt-0.5" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <MotionReveal key={i} delay={i * 0.15}>
+                <SpotlightCard className="p-10 transition-all flex flex-col h-full border border-primary/10">
+                  <div className="text-primary mb-6 transition-transform group-hover:scale-110">{sol.icon}</div>
+                  <h3 className="font-bold text-xl mb-6">{sol.title}</h3>
+                  <ul className="space-y-4 flex-1">
+                    {sol.items.map((item, j) => (
+                      <li key={j} className="text-muted-foreground text-sm flex gap-3">
+                        <ArrowRight size={14} className="text-primary shrink-0 mt-0.5" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </SpotlightCard>
+              </MotionReveal>
             ))}
           </div>
         </div>
@@ -242,20 +279,27 @@ const Index = () => {
       <section className="py-36 px-6 relative star-bg bg-card/20 overflow-hidden">
         <div className="absolute inset-0 bg-primary/2 pointer-events-none" />
         <div className="max-w-4xl mx-auto text-center relative z-10">
-          <span className="text-primary text-[11px] font-mono-tech tracking-[0.3em] uppercase mb-8 block">Our Vision</span>
-          <h2 className="font-display text-5xl md:text-7xl mb-10 leading-[1.05]">
-            A Future Where Space <br />Sustainability <span className="italic text-gradient">is the Standard</span>
-          </h2>
+          <MotionReveal>
+            <span className="text-primary text-[11px] font-mono-tech tracking-[0.3em] uppercase mb-8 block">Our Vision</span>
+            <h2 className="font-display text-5xl md:text-7xl mb-10 leading-[1.05]">
+              <CharReveal text="A Future Where Space" /><br />
+              <span className="italic text-gradient">
+                <CharReveal text="Sustainability is the Standard" delay={0.5} />
+              </span>
+            </h2>
+          </MotionReveal>
           <div className="grid sm:grid-cols-3 gap-8 text-center mt-16">
             {[
               { v: "Autonomous Protection", d: "Embedded in every satellite" },
               { v: "Managed Risk", d: "Proactive debris mitigation" },
               { v: "Foundational Infra", d: "Global safety standard" },
             ].map((item, i) => (
-              <div key={i}>
-                <p className="text-foreground font-bold mb-2 tracking-wide uppercase text-xs">{item.v}</p>
-                <p className="text-muted-foreground text-xs leading-relaxed">{item.d}</p>
-              </div>
+              <MotionReveal key={i} delay={0.2 + i * 0.1} direction="none" distance={0}>
+                <div>
+                  <p className="text-foreground font-bold mb-2 tracking-wide uppercase text-xs">{item.v}</p>
+                  <p className="text-muted-foreground text-xs leading-relaxed">{item.d}</p>
+                </div>
+              </MotionReveal>
             ))}
           </div>
         </div>
@@ -264,10 +308,12 @@ const Index = () => {
       {/* ── [ROADMAP] ── */}
       <section id="roadmap" className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-20 text-center">
-            <h2 className="font-display text-5xl mb-4">Strategic <span className="italic">Roadmap</span></h2>
-            <p className="text-muted-foreground">From Simulation to Orbital Deployment</p>
-          </div>
+          <MotionReveal className="mb-20 text-center">
+            <h2 className="font-display text-5xl mb-4">
+              <CharReveal text="Strategic Roadmap" />
+            </h2>
+            <p className="text-muted-foreground text-xs uppercase tracking-[0.4em]">From Simulation to Orbital Deployment</p>
+          </MotionReveal>
 
           <div className="grid md:grid-cols-4 gap-4">
             {[
@@ -276,23 +322,28 @@ const Index = () => {
               { phase: "Phase 3", title: "Testing", desc: "Hypervelocity impact & vibration validation." },
               { phase: "Phase 4", title: "Commercial", desc: "Host satellite integration & deployment." },
             ].map((p, i) => (
-              <div key={i} className="relative p-8 border border-border group overflow-hidden">
-                <div className="absolute top-0 right-0 p-2 font-mono-tech text-[8px] text-primary/30 group-hover:text-primary transition-colors">0{i + 1}</div>
-                <span className="text-primary font-mono-tech text-[10px] tracking-widest mb-4 block uppercase font-bold">{p.phase}</span>
-                <h3 className="text-xl font-bold mb-3">{p.title}</h3>
-                <p className="text-muted-foreground text-xs leading-relaxed">{p.desc}</p>
-              </div>
+              <MotionReveal key={i} delay={i * 0.1}>
+                <div className="relative p-8 border border-border group overflow-hidden bg-card/10 hover:border-primary/30 transition-all h-full">
+                  <div className="absolute top-0 right-0 p-2 font-mono-tech text-[8px] text-primary/30 group-hover:text-primary transition-colors">0{i + 1}</div>
+                  <span className="text-primary font-mono-tech text-[10px] tracking-widest mb-4 block uppercase font-bold">{p.phase}</span>
+                  <h3 className="text-xl font-bold mb-3">{p.title}</h3>
+                  <p className="text-muted-foreground text-xs leading-relaxed">{p.desc}</p>
+                </div>
+              </MotionReveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* ── [INVESTORS] ── */}
-      <section id="investors" className="py-32 px-6 bg-primary/5">
-        <div className="max-w-7xl mx-auto glass-panel p-16">
+      <section id="investors" className="py-32 px-6 bg-primary/5 relative overflow-hidden">
+        <OrbitalDecor />
+        <div className="max-w-7xl mx-auto glass-panel p-16 relative z-10 border border-primary/20">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div>
-              <h2 className="font-display text-5xl mb-6">The <span className="italic font-normal">Opportunity</span></h2>
+              <h2 className="font-display text-5xl mb-6">
+                <CharReveal text="The Opportunity" />
+              </h2>
               <p className="text-muted-foreground mb-8 text-lg">
                 The global space economy is expanding rapidly, with orbital safety emerging as a critical infrastructure need.
               </p>
@@ -309,9 +360,11 @@ const Index = () => {
                   </div>
                 ))}
               </div>
-              <Button className="bg-primary text-primary-foreground font-mono-tech tracking-widest uppercase rounded-none px-8 py-6">
-                Request Investor Deck
-              </Button>
+              <Magnetic>
+                <Button className="bg-primary text-primary-foreground font-mono-tech tracking-widest uppercase rounded-none px-8 py-6 group">
+                  Request Investor Deck <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Magnetic>
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
@@ -320,7 +373,7 @@ const Index = () => {
                 { label: "Scalability", val: "Modular" },
                 { label: "Validation", val: "Sim-1" },
               ].map((s, i) => (
-                <div key={i} className="border border-primary/20 p-6 text-center">
+                <div key={i} className="border border-primary/20 p-6 text-center bg-black/40">
                   <p className="text-primary text-xl font-bold font-mono-tech">{s.val}</p>
                   <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1">{s.label}</p>
                 </div>
@@ -330,80 +383,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ── [CAREERS] & [NEWS] ── */}
-      <section id="careers" className="py-32 px-6">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20">
-          <div>
-            <h2 className="font-display text-4xl mb-8">Join the <span className="italic">Mission</span></h2>
-            <div className="space-y-4">
-              {[
-                { role: "Aerospace Simulation Engineer", loc: "Remote/Hybrid" },
-                { role: "Materials Research Specialist", loc: "India" },
-                { role: "Embedded Systems Engineer", loc: "India" },
-                { role: "AI/Orbital Dynamics Analyst", loc: "Remote" },
-              ].map((job, i) => (
-                <div key={i} className="p-5 border border-border flex justify-between items-center hover:border-primary transition-colors cursor-pointer group">
-                  <div>
-                    <p className="font-bold text-sm tracking-wide group-hover:text-primary transition-colors">{job.role}</p>
-                    <p className="text-[10px] text-muted-foreground mt-1 uppercase font-mono-tech">{job.loc}</p>
-                  </div>
-                  <ExternalLink size={14} className="text-muted-foreground group-hover:text-primary transition-colors" />
-                </div>
-              ))}
-            </div>
-            <p className="mt-8 text-xs text-muted-foreground">Contact: <a href="mailto:careers@astrosolicite.com" className="hover:text-primary text-primary">careers@astrosolicite.com</a></p>
-          </div>
-
-          <div id="news">
-            <h2 className="font-display text-4xl mb-8">News & <span className="italic">Updates</span></h2>
-            <div className="space-y-6">
-              {[
-                { date: "Feb 15, 2026", title: "Successful completion of Phase 1 Simulation tests.", tag: "Tech" },
-                { date: "Jan 22, 2026", title: "Alignment with IN-SPACe regulatory framework confirmed.", tag: "Reg" },
-                { date: "Dec 05, 2025", title: "Upcoming prototype unveiling at the Global Space Summit.", tag: "Event" },
-              ].map((news, i) => (
-                <div key={i} className="relative pl-6 border-l border-primary/30 py-1">
-                  <span className="text-[10px] text-primary font-mono-tech uppercase tracking-widest mb-2 block">{news.date} — {news.tag}</span>
-                  <h3 className="font-bold hover:text-primary transition-colors cursor-pointer text-sm leading-snug">{news.title}</h3>
-                </div>
-              ))}
-            </div>
-            <Button variant="link" className="text-primary mt-8 p-0 h-auto font-mono-tech tracking-wider text-[11px] uppercase group">
-              View All Updates <ArrowRight size={14} className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ── [FAQ] ── */}
-      <section id="faq" className="py-32 px-6 bg-card/10">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="font-display text-4xl text-center mb-16 italic">Frequently Asked Questions</h2>
-          <div className="space-y-8">
-            {[
-              { q: "What makes Astrosolicite different?", a: "We deploy a companion-based autonomous architecture rather than relying solely on ground-based tracking." },
-              { q: "Is ODSS flight-ready?", a: "The system is currently in simulation validation and prototype development phase." },
-              { q: "Who are your target clients?", a: "Commercial satellite operators, defence agencies, and constellation providers." },
-              { q: "How does ODSS reduce risk?", a: "Through AI-based predictive modeling, dynamic coordination, and structural mitigation layers." },
-            ].map((item, i) => (
-              <div key={i} className="border-b border-border pb-6 group">
-                <p className="font-bold mb-2 flex justify-between items-center cursor-pointer group-hover:text-primary transition-colors text-sm uppercase tracking-wide">
-                  {item.q}
-                  <ChevronDown size={14} className="text-muted-foreground group-hover:text-primary" />
-                </p>
-                <p className="text-muted-foreground text-sm leading-relaxed">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── [CONTACT] ── */}
       <section id="contact" className="py-32 px-6 relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid lg:grid-cols-2 gap-20">
+          <MotionReveal className="grid lg:grid-cols-2 gap-20">
             <div>
-              <h2 className="font-display text-6xl mb-8">Get In <span className="italic font-normal">Touch</span></h2>
+              <h2 className="font-display text-4xl md:text-5xl lg:text-7xl mb-8">
+                <CharReveal text="Get In Touch" />
+              </h2>
               <p className="text-muted-foreground text-lg mb-12">
                 Partner with us to protect the orbital environment and preserve the future of space operations.
               </p>
@@ -415,111 +402,106 @@ const Index = () => {
                   { icon: <Cpu />, label: "Partnerships", val: "partnerships@astrosolicite.com" },
                   { icon: <BarChart3 />, label: "Investors", val: "investors@astrosolicite.com" },
                 ].map((item, i) => (
-                  <div key={i} className="flex gap-5 items-center">
-                    <div className="w-12 h-12 flex items-center justify-center bg-primary/5 border border-primary/20 text-primary">{item.icon}</div>
+                  <div key={i} className="flex gap-5 items-center group">
+                    <div className="w-12 h-12 flex items-center justify-center bg-primary/5 border border-primary/20 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500">
+                      {item.icon}
+                    </div>
                     <div>
-                      <p className="text-[10px] text-muted-foreground uppercase font-mono-tech tracking-widest">{item.label}</p>
-                      <p className="font-bold text-sm">{item.val}</p>
+                      <p className="text-[8px] text-primary/60 uppercase font-mono-tech tracking-[0.25em] mb-1">{item.label}</p>
+                      <p className="font-bold text-sm tracking-wide group-hover:text-primary transition-colors">{item.val}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="glass-panel p-10">
+            <SpotlightCard className="p-10 border border-primary/10 bg-black/40">
               <div className="grid gap-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-mono-tech uppercase tracking-widest">Full Name</label>
-                    <input type="text" placeholder="Your full name" className="w-full bg-white/5 border border-border p-3 focus:outline-none focus:border-primary" />
+                    <label className="text-[10px] font-mono-tech uppercase tracking-widest text-primary/70">Full Name</label>
+                    <input type="text" placeholder="Your full name" className="w-full bg-white/5 border border-white/10 p-4 focus:outline-none focus:border-primary transition-all rounded-none text-sm" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-mono-tech uppercase tracking-widest">Phone</label>
-                    <input type="text" placeholder="Your phone number" className="w-full bg-white/5 border border-border p-3 focus:outline-none focus:border-primary" />
+                    <label className="text-[10px] font-mono-tech uppercase tracking-widest text-primary/70">Phone</label>
+                    <input type="text" placeholder="Your phone number" className="w-full bg-white/5 border border-white/10 p-4 focus:outline-none focus:border-primary transition-all rounded-none text-sm" />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-mono-tech uppercase tracking-widest">Organization</label>
-                  <input type="text" placeholder="Your organization" className="w-full bg-white/5 border border-border p-3 focus:outline-none focus:border-primary" />
+                  <label className="text-[10px] font-mono-tech uppercase tracking-widest text-primary/70">Organization</label>
+                  <input type="text" placeholder="Your organization" className="w-full bg-white/5 border border-white/10 p-4 focus:outline-none focus:border-primary transition-all rounded-none text-sm" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-mono-tech uppercase tracking-widest">Email Address</label>
-                  <input type="email" placeholder="your@email.com" className="w-full bg-white/5 border border-border p-3 focus:outline-none focus:border-primary" />
+                  <label className="text-[10px] font-mono-tech uppercase tracking-widest text-primary/70">Email Address</label>
+                  <input type="email" placeholder="your@email.com" className="w-full bg-white/5 border border-white/10 p-4 focus:outline-none focus:border-primary transition-all rounded-none text-sm" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-mono-tech uppercase tracking-widest">Subject</label>
-                  <input type="text" placeholder="Inquiry subject" className="w-full bg-white/5 border border-border p-3 focus:outline-none focus:border-primary" />
+                  <label className="text-[10px] font-mono-tech uppercase tracking-widest text-primary/70">Message</label>
+                  <textarea rows={4} placeholder="Tell us about your inquiry..." className="w-full bg-white/5 border border-white/10 p-4 focus:outline-none focus:border-primary transition-all rounded-none text-sm resize-none" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-mono-tech uppercase tracking-widest">Message</label>
-                  <textarea rows={4} placeholder="Tell us about your inquiry..." className="w-full bg-white/5 border border-border p-3 focus:outline-none focus:border-primary resize-none" />
-                </div>
-                <Button className="w-full bg-primary text-primary-foreground font-mono-tech tracking-[0.2em] rounded-none py-6 uppercase shadow-[4px_4px_0px_white]">
+                <Button className="w-full bg-primary text-primary-foreground font-mono-tech tracking-[0.3em] rounded-none py-7 uppercase shadow-[4px_4px_0px_white] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
                   Submit Inquiry
                 </Button>
               </div>
-            </div>
-          </div>
+            </SpotlightCard>
+          </MotionReveal>
         </div>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="bg-card py-20 px-6 border-t border-primary/20">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
-          <div className="col-span-1 md:col-span-1">
+      <footer className="bg-card py-16 md:py-24 px-6 border-t border-primary/20 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 relative z-10">
+          <div className="space-y-6">
             <div className="flex flex-col gap-4">
-              <span className="font-mono-tech text-lg font-bold uppercase tracking-[0.25em]">ASTRO<span className="text-primary">SOLICITE</span></span>
-              <p className="text-muted-foreground text-xs leading-relaxed max-w-xs uppercase tracking-wider">
+              <span className="font-mono-tech text-lg font-bold uppercase tracking-[0.25em]">ASTRO<span className="text-primary italic">SOLICITE</span></span>
+              <p className="text-muted-foreground text-[10px] md:text-xs leading-relaxed max-w-xs uppercase tracking-[0.15em]">
                 Autonomous Orbital Protection Systems. <br />
                 Protecting Orbits. Preserving Futures.
               </p>
             </div>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-1 gap-8">
-            <div className="space-y-4">
-              <h4 className="font-mono-tech text-[10px] tracking-widest uppercase font-bold text-primary">Links</h4>
-              <div className="flex flex-col gap-2 text-xs text-muted-foreground">
-                {["Home", "About", "Technology", "Solutions", "Roadmap", "Investors", "Careers", "News", "Contact"].map((l) => (
-                  <a key={l} href={`#${l.toLowerCase()}`} className="hover:text-primary transition-colors">{l}</a>
-                ))}
-              </div>
+            <div className="flex gap-4">
+              <Linkedin size={18} className="text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
+              <Twitter size={18} className="text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
+              <Search size={18} className="text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
+              <PlayCircle size={18} className="text-muted-foreground hover:text-primary cursor-pointer transition-colors" />
             </div>
           </div>
 
-          <div className="space-y-4">
-            <h4 className="font-mono-tech text-[10px] tracking-widest uppercase font-bold text-primary">Legal</h4>
-            <div className="flex flex-col gap-2 text-xs text-muted-foreground">
+          <div className="space-y-6">
+            <h4 className="font-mono-tech text-[10px] tracking-[0.3em] uppercase font-bold text-primary">Intelligence</h4>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-[10px] uppercase tracking-widest text-muted-foreground font-mono-tech">
+              {["Home", "About", "Technology", "Solutions", "Roadmap", "Investors", "Careers", "Contact"].map((l) => (
+                <a key={l} href={`#${l.toLowerCase()}`} className="hover:text-primary transition-colors">{l}</a>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <h4 className="font-mono-tech text-[10px] tracking-[0.3em] uppercase font-bold text-primary">Protocol</h4>
+            <div className="flex flex-col gap-3 text-[10px] uppercase tracking-widest text-muted-foreground font-mono-tech">
               {["Privacy Policy", "Terms & Conditions", "Cookie Policy", "Disclaimer"].map((l) => (
                 <a key={l} href="#" className="hover:text-primary transition-colors">{l}</a>
               ))}
             </div>
-            <div className="mt-8">
-              <h4 className="font-mono-tech text-[10px] tracking-widest uppercase font-bold text-primary mb-4">Connect</h4>
-              <div className="flex gap-4">
-                <Linkedin size={18} className="text-muted-foreground hover:text-primary cursor-pointer" />
-                <Twitter size={18} className="text-muted-foreground hover:text-primary cursor-pointer" />
-                <Search size={18} className="text-muted-foreground hover:text-primary cursor-pointer" />
-                <PlayCircle size={18} className="text-muted-foreground hover:text-primary cursor-pointer" />
+          </div>
+
+          <div className="space-y-6">
+            <h4 className="font-mono-tech text-[10px] tracking-[0.3em] uppercase font-bold text-primary">Direct Intel</h4>
+            <div className="text-[10px] uppercase tracking-widest text-muted-foreground space-y-3 font-mono-tech leading-relaxed">
+              <p className="flex items-center gap-2"><MapPin size={12} className="text-primary" /> Bengaluru, India</p>
+              <p className="flex items-center gap-2"><Mail size={12} className="text-primary" /> info@astrosolicite.com</p>
+              <p className="flex items-center gap-2"><Globe size={12} className="text-primary" /> www.astrosolicite.com</p>
+            </div>
+            <div className="pt-4">
+              <div className="w-14 h-14 bg-white p-1 rounded-md border border-white/10 shadow-lg">
+                <img src={logo} alt="Astrosolicite" className="w-full h-full object-contain" />
               </div>
             </div>
           </div>
-
-          <div className="space-y-4">
-            <h4 className="font-mono-tech text-[10px] tracking-widest uppercase font-bold text-primary">Contact</h4>
-            <div className="text-xs text-muted-foreground space-y-2">
-              <p>Bengaluru, India</p>
-              <p>info@astrosolicite.com</p>
-              <p>www.astrosolicite.com</p>
-            </div>
-            <div className="pt-4">
-              <img src={logo} alt="Astrosolicite" className="w-16 h-16 object-contain border border-white/10 dark:invert rounded p-1" />
-            </div>
-          </div>
         </div>
-        <div className="max-w-7xl mx-auto border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-muted-foreground tracking-widest uppercase">
+        <div className="max-w-7xl mx-auto border-t border-white/5 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center text-[8px] md:text-[10px] text-muted-foreground tracking-[0.3em] uppercase relative z-10 text-center md:text-left">
           <p>© 2026 Astrosolicite Private Limited. All rights reserved.</p>
-          <p className="mt-4 md:mt-0 italic">Designed for sustainable space innovation.</p>
+          <p className="mt-4 md:mt-0 italic opacity-60">Sustainable Space Innovation.</p>
         </div>
       </footer>
     </div>
@@ -542,5 +524,30 @@ const CheckIcon = ({ className, size }: { className?: string, size?: number }) =
     <path d="M20 6 9 17l-5-5" />
   </svg>
 );
+
+const BackgroundDecor = memo(() => (
+  <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div className="absolute top-[10%] left-[-5%] w-[40vw] h-[40vw] bg-primary/2 blur-[100px] rounded-full" />
+    <div className="absolute bottom-[-10%] right-[-5%] w-[50vw] h-[50vw] bg-primary/2 blur-[120px] rounded-full" />
+  </div>
+));
+
+const CustomCursor = memo(({ mouseX, mouseY }: { mouseX: any, mouseY: any }) => {
+  const cursorX = useSpring(mouseX, { stiffness: 400, damping: 30, mass: 0.5 });
+  const cursorY = useSpring(mouseY, { stiffness: 400, damping: 30, mass: 0.5 });
+
+  return (
+    <>
+      <motion.div
+        className="fixed top-0 left-0 w-10 h-10 border border-primary/30 rounded-full z-[100] pointer-events-none mix-blend-difference hidden xl:block"
+        style={{ x: cursorX, y: cursorY, xPercent: -50, yPercent: -50 } as any}
+      />
+      <motion.div
+        className="fixed top-0 left-0 w-1 h-1 bg-primary rounded-full z-[100] pointer-events-none hidden xl:block shadow-[0_0_10px_#00e5ff]"
+        style={{ x: mouseX, y: mouseY, xPercent: -50, yPercent: -50 } as any}
+      />
+    </>
+  );
+});
 
 export default Index;

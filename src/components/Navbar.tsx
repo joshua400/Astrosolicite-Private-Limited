@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.jpeg";
+import { Magnetic, TextScramble, CharReveal } from "@/hooks/useAnimations";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -25,61 +26,68 @@ export const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-          ? "glass-panel border-b border-primary/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-          : "bg-transparent border-b border-transparent"
-        }`}
+      className={`fixed z-50 transition-all duration-500 rounded-full flex flex-col items-center border ${scrolled
+        ? "top-4 w-[92%] md:w-[90%] max-w-6xl glass-panel border-primary/20 shadow-[0_20px_50px_rgba(0,0,0,0.6)] py-2 md:py-3 px-6 md:px-8"
+        : "top-6 w-[95%] max-w-7xl bg-black/40 backdrop-blur-md border-white/10 shadow-lg shadow-black/20 py-3 md:py-4 px-6 md:px-10"
+        } left-1/2 -translate-x-1/2`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="flex items-center justify-between w-full min-h-[40px]">
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-3">
-          <div className="w-10 h-10 relative overflow-hidden rounded-lg bg-black/40 border border-primary/30 p-1">
+        <a href="#home" className="flex items-center gap-3 group">
+          <div className="w-11 h-11 relative overflow-hidden rounded-md border border-primary/20 bg-white flex items-center justify-center p-0.5 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:border-primary/50 transition-colors duration-500">
             <img src={logo} alt="Astrosolicite Logo" className="w-full h-full object-contain" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-foreground font-bold text-sm tracking-[0.25em] uppercase font-mono-tech">
-              ASTRO<span className="text-primary italic">SOLICITE</span>
-            </span>
-            <span className="text-muted-foreground text-[9px] tracking-[0.1em] uppercase -mt-0.5">
+          <div className="flex flex-col justify-center">
+            <div className="flex items-baseline gap-1 md:gap-1.5 leading-none">
+              <span className="text-foreground font-bold text-xs md:text-sm tracking-[0.2em] uppercase font-mono-tech">
+                ASTRO
+              </span>
+              <span className="text-primary italic font-bold text-xs md:text-sm tracking-[0.1em] uppercase font-mono-tech">
+                <CharReveal text="SOLICITE" />
+              </span>
+            </div>
+            <span className="text-muted-foreground text-[7px] md:text-[8px] tracking-[0.2em] uppercase mt-0.5 font-mono-tech">
               Protecting Orbits
             </span>
           </div>
         </a>
 
         {/* Desktop Nav */}
-        <ul className="hidden lg:flex items-center gap-7">
+        <ul className="hidden xl:flex items-center gap-6">
           {navItems.map((item) => (
             <li key={item.name}>
-              <a
-                href={item.href}
-                className="text-[10.5px] tracking-[0.15em] uppercase text-muted-foreground hover:text-primary transition-all duration-300 relative group font-medium"
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full" />
-              </a>
+              <Magnetic>
+                <a
+                  href={item.href}
+                  className="text-[10.5px] tracking-[0.15em] uppercase text-muted-foreground hover:text-primary transition-all duration-300 relative group font-medium px-2 py-1"
+                >
+                  {item.name}
+                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full" />
+                </a>
+              </Magnetic>
             </li>
           ))}
         </ul>
 
         {/* Mobile hamburger */}
         <button
-          className="lg:hidden text-foreground p-1 hover:text-primary transition-colors"
+          className="xl:hidden text-foreground p-1 hover:text-primary transition-colors h-10 w-10 flex items-center justify-center rounded-full hover:bg-white/5"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Expansion */}
       {menuOpen && (
-        <div className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-primary/10 px-6 py-8 animate-fade-in">
-          <ul className="flex flex-col gap-6">
+        <div className="xl:hidden w-full overflow-hidden animate-in fade-in slide-in-from-top-2 duration-300">
+          <ul className="grid grid-cols-2 gap-x-2 gap-y-1 pt-4 pb-2 border-t border-white/10 mt-3">
             {navItems.map((item) => (
               <li key={item.name}>
                 <a
                   href={item.href}
-                  className="text-xs tracking-[0.15em] uppercase text-foreground hover:text-primary transition-colors p-2 block border-b border-white/5"
+                  className="text-[9px] tracking-[0.15em] uppercase text-foreground/70 hover:text-primary transition-all duration-300 px-3 py-2.5 block rounded-lg font-mono-tech border border-transparent hover:border-primary/10 hover:bg-white/5"
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.name}
@@ -89,6 +97,6 @@ export const Navbar = () => {
           </ul>
         </div>
       )}
-    </nav>
+    </nav >
   );
 };
