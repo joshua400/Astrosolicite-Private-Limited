@@ -1,26 +1,26 @@
-import { Eye, Target } from 'lucide-react'
-import { MotionReveal, TextScramble, SpotlightCard, OrbitalDecor, Magnetic, CharReveal } from '@/hooks/useAnimations'
+import { Eye, Target, Award } from 'lucide-react'
+import { MotionReveal, SpotlightCard, OrbitalDecor, CharReveal } from '@/hooks/useAnimations'
 
 const keyPillars = [
     {
-        title: 'Autonomous Defense',
-        description: 'Self-governing satellite shielding minimizing reliance on ground control.',
+        title: 'Hypervelocity Impact Mitigation',
+        description: 'Advanced engineering to counter destructive kinetic energy in orbit.',
     },
     {
-        title: 'Kinetic Dissipation',
-        description: 'Advanced aerogel layers engineered to scatter hypervelocity impacts.',
+        title: 'Intelligent Composite Shielding',
+        description: 'Multi-layer energy-dissipative architectures for satellite survivability.',
     },
     {
-        title: 'Sustainable Orbit',
-        description: 'Preventing dangerous debris cascades before they critically strike.',
+        title: 'Simulation-First Validation',
+        description: 'Rigorous computational and multiphysics modeling prior to deployment.',
     },
     {
-        title: 'Predictive Targeting',
-        description: 'Real-time orbital tracking calculating intercepts with AI models.',
+        title: 'Academic + Industrial Synergy',
+        description: 'Bridging deep research with practical defense-aligned applications.',
     },
     {
-        title: 'Scalable Integration',
-        description: 'Hardware modules designed for seamless host-satellite deployment.',
+        title: 'National Recognition',
+        description: 'Backed by government validation and space domain experts.',
     },
 ]
 
@@ -33,29 +33,28 @@ export default function About() {
                 <MotionReveal>
                     <div className="text-center mb-24">
                         <div className="inline-flex items-center gap-2 mb-6 border border-primary/20 bg-primary/5 px-4 py-1.5 shadow-[0_0_15px_rgba(0,184,212,0.1)]">
-                            <span className="text-[10px] font-bold tracking-[0.2em] font-mono-tech uppercase text-primary">The Company</span>
+                            <span className="text-[10px] font-bold tracking-[0.2em] font-mono-tech uppercase text-primary">Corporate Overview</span>
                         </div>
                         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-foreground tracking-tight leading-[1.2] md:leading-[1.1]">
-                            <CharReveal text="About" /> <br className="sm:hidden" /> <span className="italic text-gradient"><CharReveal text="Astrosolicite" delay={0.3} /></span>
+                            <CharReveal text="About" /> <br className="sm:hidden" /> <span className="italic text-gradient"><CharReveal text="Astrosolstice" delay={0.3} /></span>
                         </h2>
+
+                        <div className="flex justify-center mb-10">
+                            <div className="bg-primary/10 border border-primary/30 p-4 rounded-md max-w-2xl flex items-start gap-4 shadow-[0_0_20px_rgba(0,184,212,0.15)]">
+                                <Award className="text-primary shrink-0 mt-1" size={28} />
+                                <p className="text-left text-sm font-mono-tech text-foreground leading-relaxed italic">
+                                    “Selected under the INNOVATE Phase – Pre-Incubation Entrepreneurship Program by IN-SPACe (Government of India)”
+                                </p>
+                            </div>
+                        </div>
+
                         <div className="text-muted-foreground text-lg max-w-3xl mx-auto font-sans font-light leading-relaxed space-y-4">
                             <p>
-                                <span className="font-bold text-foreground">Astrosolicite Private Limited</span> is a pioneering deep-tech aerospace company focused on building next-generation orbital protection architectures to secure humanity's future in space.
+                                <span className="font-bold text-foreground">Astrosolstice Private Limited</span> was founded to address one of the most critical challenges facing the global space economy: the escalating risk of hypervelocity orbital debris.
                             </p>
                             <p>
-                                We develop sustainable, autonomous hardware and AI-driven predictive tracking to defend critical satellite infrastructure against the escalating threat of hypervelocity orbital debris.
+                                We employ a <span className="font-bold text-primary">simulation-first validation strategy</span>, leveraging rigorous computational fluid dynamics (CFD), structural modeling, and academic-industrial synergy to engineer the next generation of satellite survivability enhancement systems.
                             </p>
-                            <p>
-                                Astrosolicite specializes in mission-critical defensive hardware. Our flagship innovation is the <span className="font-bold text-primary">Orbital Debris Shielding System (ODSS)</span>, designed to:
-                            </p>
-                            <ul className="list-disc list-inside space-y-1 text-base ml-4 text-foreground/80">
-                                <li>Actively track incoming kinetic threats in real-time</li>
-                                <li>Deploy multi-layered hyperelastic capture modules</li>
-                                <li>Guarantee the survivability of strategic orbital assets</li>
-                            </ul>
-                            <div className="pt-6 mt-6 border-t border-primary/10 text-xs uppercase tracking-widest font-mono-tech font-bold text-primary/70">
-                                For: Satellite Operators • Defense Sectors • Mega-Constellations
-                            </div>
                         </div>
                     </div>
                 </MotionReveal>
@@ -70,11 +69,11 @@ export default function About() {
                                     <Eye className="h-5 w-5 text-primary" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-foreground font-display tracking-wide">
-                                    <CharReveal text="Our Vision" />
+                                    <CharReveal text="Our Focus" />
                                 </h3>
                             </div>
                             <p className="text-muted-foreground leading-relaxed font-sans text-sm md:text-base">
-                                To establish autonomous kinetic protection as the universal standard for all orbital operations, ensuring that the space environment remains safe, accessible, and economically viable for future generations of exploration and infrastructure.
+                                To secure missions and protect orbits through intelligent composite shielding. We aim to establish highly resilient, autonomous structural countermeasures as the standard for orbital sustainability engineering.
                             </p>
                         </SpotlightCard>
                     </MotionReveal>
@@ -85,11 +84,11 @@ export default function About() {
                                     <Target className="h-5 w-5 text-primary" />
                                 </div>
                                 <h3 className="text-2xl font-bold text-foreground font-display tracking-wide">
-                                    <CharReveal text="Our Mission" />
+                                    <CharReveal text="Core Innovation" />
                                 </h3>
                             </div>
                             <p className="text-muted-foreground leading-relaxed font-sans text-sm md:text-base">
-                                To engineer, validate, and deploy the world's first <span className="font-bold text-primary">Companion-Based Defense Architecture</span>. We aim to mitigate catastrophic fragmentation events through highly resilient, autonomous structural countermeasures.
+                                Utilizing advanced multiphysics simulations and multi-layer composites, our <span className="font-bold text-primary">Orbital Space Debris Shielding System (OSDSS)</span> mitigates the destructive properties of hypervelocity impacts, ensuring critical mission longevity.
                             </p>
                         </SpotlightCard>
                     </MotionReveal>
@@ -98,7 +97,7 @@ export default function About() {
                 {/* Key Pillars */}
                 <MotionReveal delay={0.3}>
                     <div className="text-center mb-16">
-                        <h3 className="text-sm tracking-[0.3em] uppercase font-mono-tech font-bold text-primary mb-4">Core Principles</h3>
+                        <h3 className="text-sm tracking-[0.3em] uppercase font-mono-tech font-bold text-primary mb-4">Strategic Pillars</h3>
                         <div className="w-px h-12 bg-gradient-to-b from-primary/50 to-transparent mx-auto" />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">

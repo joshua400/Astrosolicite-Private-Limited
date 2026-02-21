@@ -3,48 +3,66 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { MotionReveal, TextScramble, SpotlightCard, OrbitalDecor, Magnetic, CharReveal } from '@/hooks/useAnimations'
 import { Linkedin } from 'lucide-react'
 
-// Assuming we only have details for KV Avinash Sarma right now. 
-// Adding placeholders for the other 2 as requested ("in now our website it has three").
+import VenkateshImg from '@/assets/Venkatesh.jpeg'
+import MadhanImg from '@/assets/Madhan kumae.jpeg'
+import GanesanImg from '@/assets/Dr_S_Ganesan.jpeg'
+
 const founders = [
     {
-        name: 'KV Avinash Sarma',
-        role: 'Founder & Chief Executive Officer',
-        image: '/founder_new.jpeg', // Using existing or placeholder image
-        bio: 'KV Avinash Sarma brings extensive experience in the aerospace startup industry, with a proven track record of leadership and strategic vision. His expertise lies in delivering high-quality defense architectures and building successful engineering teams.',
+        name: 'Mr. S. Venkatesh',
+        role: 'Founder – Space Systems Architect',
+        image: VenkateshImg,
+        bio: 'Aerospace systems architect bridging structural research, CFD modeling, and hypervelocity protection engineering. Pursuing PhD from Sathyabama Institute with over 35+ international publications and 10+ granted patents. Selected for IN-SPACe Innovate Phase.',
         skills: [
-            'Strategic Vision & Payload Integration',
-            'Space Operations Management',
-            'Cross-functional Engineering',
-            'Orbital Dynamics Mentorship'
+            'Hypervelocity Impact Mitigation',
+            'Multiphysics Structural Simulation',
+            'Aerospace Composite Systems',
+            'CFD & Thermal Modeling'
         ],
-        linkedin: 'https://www.linkedin.com/in/avinashsarma',
+        linkedin: '#',
         themeClass: 'bg-black/95' // Deep space dark
     },
     {
-        name: 'Placeholder Founder 2',
-        role: 'Chief Technology Officer',
-        image: '/placeholder_founder_2.jpg',
-        bio: 'Leading the technical development and predictive AI models for autonomous kinetic protection architectures.',
+        name: 'Mr. G. Madhan Kumar',
+        role: 'Co-Founder – Operations & Technical Lead',
+        image: MadhanImg,
+        bio: 'Focuses on operational strategies, aerospace engineering integration, and the technical development of orbital protection frameworks. Brings deep expertise in system implementation and engineering operations.',
         skills: [
-            'Predictive Modeling',
-            'AI Systems Architecture',
-            'Structural Countermeasures'
+            'Operations Management',
+            'Aerospace Engineering',
+            'Systems Development',
+            'Technical Implementation'
         ],
         linkedin: '#',
         themeClass: 'bg-black/90' // Slightly lighter space dark
     },
     {
-        name: 'Placeholder Founder 3',
-        role: 'Chief Operating Officer',
-        image: '/placeholder_founder_3.jpg',
-        bio: 'Overseeing daily operations, manufacturing logistics, and ensuring seamless structural production for orbital deployment.',
+        name: 'Dr. J. Hemanandh',
+        role: 'Co-Founder – Strategic Systems Advisory',
+        image: 'https://via.placeholder.com/400x400/000000/00F0FF?text=Dr+J+Hemanandh',
+        bio: 'Provides strategic governance and technical advisory for deep-tech orbital systems. Ensures mission-critical alignments and validation of space-grade architectures.',
         skills: [
-            'Logistics & Manufacturing',
-            'Supply Chain Management',
-            'Aerospace Regulations'
+            'Strategic Systems Advisory',
+            'Governance & Compliance',
+            'Space-Grade Architecture',
+            'Core Mission Alignment'
         ],
         linkedin: '#',
         themeClass: 'bg-background' // Standard background
+    },
+    {
+        name: 'Dr. S. Ganesan',
+        role: 'Co-Founder – Structural Validation Advisory',
+        image: GanesanImg,
+        bio: 'Advises on structural verification, thermal resiliency, and system engineering. Guides the academic-industrial research transition into viable orbital deployment systems.',
+        skills: [
+            'Structural Validation',
+            'System Engineering Advisory',
+            'Thermal Resiliency',
+            'Research Transitioning'
+        ],
+        linkedin: '#',
+        themeClass: 'bg-primary/5' // Tinted dark
     }
 ]
 

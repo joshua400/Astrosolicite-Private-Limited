@@ -1,0 +1,21 @@
+
+> astrosolicite-website@1.0.0 build
+> next build
+
+  Γû▓ Next.js 14.2.16
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+Failed to compile.
+
+./_backup_temp/app/layout.tsx:3:26
+Type error: Cannot find module '@/components/CustomCursor' or its corresponding type declarations.
+
+  1 | import type { Metadata } from 'next'
+  2 | import './globals.css'
+> 3 | import CustomCursor from '@/components/CustomCursor'
+    |                          ^
+  4 |
+  5 | export const metadata: Metadata = {
+  6 |   title: 'AVIXR Technologies Pvt Ltd',
