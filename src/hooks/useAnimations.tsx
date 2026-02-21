@@ -130,9 +130,9 @@ export function SpotlightCard({ children, className = "" }: { children: React.Re
             onMouseMove={onMouseMove}
         >
             <motion.div
-                className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100"
+                className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 will-change-[background]"
                 style={{
-                    background: `radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(0,229,255,0.06), transparent 80%)`,
+                    background: `radial-gradient(400px circle at ${mouseX}px ${mouseY}px, rgba(0,229,255,0.05), transparent 80%)`,
                 }}
             />
             {children}
@@ -217,17 +217,18 @@ export const CharReveal = ({ text, delay = 0, className = "" }: { text: string, 
             y: 0,
             transition: {
                 type: "spring" as const,
-                damping: 20,
-                stiffness: 100,
+                damping: 30,
+                stiffness: 150,
+                mass: 0.8
             },
         },
         hidden: {
             opacity: 0,
-            y: 20,
+            y: 10,
             transition: {
                 type: "spring" as const,
-                damping: 20,
-                stiffness: 100,
+                damping: 30,
+                stiffness: 150,
             },
         },
     }

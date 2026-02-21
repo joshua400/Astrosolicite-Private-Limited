@@ -39,7 +39,7 @@ const founders = [
     {
         name: 'Dr. J. Hemanandh',
         role: 'Co-Founder – Strategic Systems Advisory',
-        image: 'https://via.placeholder.com/400x400/000000/00F0FF?text=Dr+J+Hemanandh',
+        image: '/placeholder-founder.jpeg',
         bio: 'Provides strategic governance and technical advisory for deep-tech orbital systems. Ensures mission-critical alignments and validation of space-grade architectures.',
         skills: [
             'Strategic Systems Advisory',
@@ -89,8 +89,6 @@ function FounderCard({ founder, index, range, targetScale, progress }: FounderCa
                 style={{ scale, top: `var(--card-top)` } as any}
                 className={`relative flex flex-col w-[92vw] md:w-[70vw] max-w-5xl min-h-[70vh] md:h-[70vh] p-6 sm:p-10 md:p-16 border border-primary/20 shadow-[0_32px_64px_-12px_rgba(0,184,212,0.1)] origin-top ${founder.themeClass} [--card-top:calc(8vh+${index * 20}px)] overflow-hidden`}
             >
-                {/* Cinematic Grid/Noise Background */}
-                <div className="absolute inset-0 scanline opacity-30 pointer-events-none" />
                 <div className="absolute inset-0 bg-primary/2 pointer-events-none" />
                 <div className="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none" />
 
@@ -100,16 +98,16 @@ function FounderCard({ founder, index, range, targetScale, progress }: FounderCa
                     <div className="flex-shrink-0 relative group mt-4 lg:mt-0">
                         <div className="w-40 h-40 sm:w-56 sm:h-56 md:w-80 md:h-80 relative">
                             <div className="absolute inset-0 rounded-none overflow-hidden border border-primary/30 p-2 shadow-inner bg-black">
-                                <div className="relative w-full h-full overflow-hidden bg-white/5 grayscale group-hover:grayscale-0 transition-all duration-700">
+                                <div className="relative w-full h-full overflow-hidden bg-white/5 transition-all duration-700">
                                     <img
                                         src={founder.image}
                                         alt={founder.name}
-                                        className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                                        className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105 opacity-100"
                                         onError={(e) => {
                                             (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x400?text=No+Image';
                                         }}
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+                                    <div className="absolute inset-0 bg-transparent" />
                                 </div>
                             </div>
                             <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-primary" />
@@ -183,12 +181,11 @@ export default function Founder() {
             {/* Background Starfield styling */}
             <div className="absolute inset-0 star-bg pointer-events-none opacity-50" />
 
-            <OrbitalDecor />
             <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-24 relative z-10">
                 <MotionReveal className="text-center">
                     <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-primary font-mono-tech block mb-6">Strategic Command</span>
                     <h2 className="font-display text-5xl md:text-7xl font-bold mb-8 text-foreground tracking-tight leading-[0.9]">
-                        The <span className="italic text-gradient block"><TextScramble text="Leadership" delay={0.5} /></span>
+                        The <span className="italic text-gradient block">Leadership</span>
                     </h2>
                 </MotionReveal>
             </div>

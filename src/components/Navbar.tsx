@@ -35,7 +35,7 @@ export const Navbar = () => {
         {/* Logo */}
         <a href="#home" className="flex items-center gap-3 group">
           <div className="w-11 h-11 relative overflow-hidden rounded-md border border-primary/20 bg-white flex items-center justify-center p-0.5 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:border-primary/50 transition-colors duration-500">
-            <img src={logo} alt="Astrosolicite Logo" className="w-full h-full object-contain" />
+            <img src={logo} alt="Astrosolstice Logo" className="w-full h-full object-contain" />
           </div>
           <div className="flex flex-col justify-center">
             <div className="flex items-baseline gap-1 md:gap-1.5 leading-none">
@@ -43,7 +43,7 @@ export const Navbar = () => {
                 ASTRO
               </span>
               <span className="text-primary italic font-bold text-xs md:text-sm tracking-[0.1em] uppercase font-mono-tech">
-                <CharReveal text="SOLICITE" />
+                <CharReveal text="SOLSTICE" />
               </span>
             </div>
             <span className="text-muted-foreground text-[7px] md:text-[8px] tracking-[0.2em] uppercase mt-0.5 font-mono-tech">

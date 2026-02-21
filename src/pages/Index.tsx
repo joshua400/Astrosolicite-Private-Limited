@@ -15,7 +15,7 @@ import { MotionReveal, SpotlightCard, use3DTilt, TextScramble, Magnetic, Orbital
 import heroVideo from "@/assets/hero-reveal.mp4";
 import logo from "@/assets/logo.jpeg";
 
-const springConfig = { stiffness: 100, damping: 30, restDelta: 0.001 };
+const springConfig = { stiffness: 150, damping: 25, restDelta: 0.001 };
 
 const Index = () => {
   const { scrollY } = useScroll();
@@ -546,8 +546,8 @@ const CheckIcon = ({ className, size }: { className?: string, size?: number }) =
 
 const BackgroundDecor = memo(() => (
   <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div className="absolute top-[10%] left-[-5%] w-[40vw] h-[40vw] bg-primary/2 blur-[100px] rounded-full" />
-    <div className="absolute bottom-[-10%] right-[-5%] w-[50vw] h-[50vw] bg-primary/2 blur-[120px] rounded-full" />
+    <div className="absolute top-[10%] left-[-5%] w-[40vw] h-[40vw] bg-primary/2 blur-[60px] rounded-full will-change-[filter]" />
+    <div className="absolute bottom-[-10%] right-[-5%] w-[50vw] h-[50vw] bg-primary/2 blur-[80px] rounded-full will-change-[filter]" />
   </div>
 ));
 
