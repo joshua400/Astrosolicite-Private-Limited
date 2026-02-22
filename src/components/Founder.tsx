@@ -1,17 +1,20 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { MotionReveal, TextScramble, SpotlightCard, OrbitalDecor, Magnetic, CharReveal } from '@/hooks/useAnimations'
-import { Linkedin } from 'lucide-react'
+import { Mail, Phone } from 'lucide-react'
 
 import VenkateshImg from '@/assets/Venkatesh.jpeg'
 import MadhanImg from '@/assets/Madhan kumae.jpeg'
 import GanesanImg from '@/assets/Dr_S_Ganesan.jpeg'
+import HemanandhImg from '@/assets/Hemanandh.png'
 
 const founders = [
     {
         name: 'Mr. S. Venkatesh',
         role: 'Founder – Space Systems Architect',
         image: VenkateshImg,
+        email: 'mitvenkatesh@gmail.com',
+        phone: '+91 97899 93066',
         bio: 'Aerospace systems architect bridging structural research, CFD modeling, and hypervelocity protection engineering. Pursuing PhD from Sathyabama Institute with over 35+ international publications and 10+ granted patents. Selected for IN-SPACe Innovate Phase.',
         skills: [
             'Hypervelocity Impact Mitigation',
@@ -26,6 +29,8 @@ const founders = [
         name: 'Mr. G. Madhan Kumar',
         role: 'Co-Founder – Operations & Technical Lead',
         image: MadhanImg,
+        email: 'madhanaero701@gmail.com',
+        phone: '+91 84894 02901',
         bio: 'Focuses on operational strategies, aerospace engineering integration, and the technical development of orbital protection frameworks. Brings deep expertise in system implementation and engineering operations.',
         skills: [
             'Operations Management',
@@ -39,7 +44,9 @@ const founders = [
     {
         name: 'Dr. J. Hemanandh',
         role: 'Co-Founder – Strategic Systems Advisory',
-        image: '/placeholder-founder.jpeg',
+        image: HemanandhImg,
+        email: 'hemanandh123@gmail.com',
+        phone: '+91 73388 89562',
         bio: 'Provides strategic governance and technical advisory for deep-tech orbital systems. Ensures mission-critical alignments and validation of space-grade architectures.',
         skills: [
             'Strategic Systems Advisory',
@@ -54,6 +61,8 @@ const founders = [
         name: 'Dr. S. Ganesan',
         role: 'Co-Founder – Structural Validation Advisory',
         image: GanesanImg,
+        email: 'gansumaa@gmail.com',
+        phone: '+91 98846 17947',
         bio: 'Advises on structural verification, thermal resiliency, and system engineering. Guides the academic-industrial research transition into viable orbital deployment systems.',
         skills: [
             'Structural Validation',
@@ -87,12 +96,12 @@ function FounderCard({ founder, index, range, targetScale, progress }: FounderCa
         <div ref={container} className="min-h-screen md:h-screen flex items-center justify-center sticky top-0 py-10 md:py-0">
             <motion.div
                 style={{ scale, top: `var(--card-top)` } as any}
-                className={`relative flex flex-col w-[92vw] md:w-[70vw] max-w-5xl min-h-[70vh] md:h-[70vh] p-6 sm:p-10 md:p-16 border border-primary/20 shadow-[0_32px_64px_-12px_rgba(0,184,212,0.1)] origin-top ${founder.themeClass} [--card-top:calc(8vh+${index * 20}px)] overflow-hidden`}
+                className={`relative flex flex-col w-[92vw] md:w-[70vw] max-w-5xl min-h-[75vh] md:h-[80vh] p-6 sm:p-10 md:p-16 border border-primary/20 shadow-[0_32px_64px_-12px_rgba(0,184,212,0.1)] origin-top ${founder.themeClass} [--card-top:calc(8vh+${index * 20}px)] overflow-hidden`}
             >
                 <div className="absolute inset-0 bg-primary/2 pointer-events-none" />
                 <div className="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none" />
 
-                <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-16 w-full h-full relative z-10 overflow-y-auto lg:overflow-hidden no-scrollbar">
+                <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-16 w-full h-full relative z-10 overflow-y-auto no-scrollbar pb-12">
 
                     {/* Founder Image */}
                     <div className="flex-shrink-0 relative group mt-4 lg:mt-0">
@@ -146,17 +155,26 @@ function FounderCard({ founder, index, range, targetScale, progress }: FounderCa
                             ))}
                         </div>
 
-                        <div className="flex justify-center lg:justify-start">
+                        <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                             <Magnetic>
                                 <a
-                                    href={founder.linkedin}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-3 text-primary hover:text-foreground transition-all duration-300 text-[9px] font-bold uppercase tracking-widest border border-primary/30 px-6 py-3 bg-primary/5 hover:bg-primary/20 group relative overflow-hidden"
+                                    href={`mailto:${founder.email}`}
+                                    className="inline-flex items-center gap-3 text-primary/80 hover:text-foreground transition-all duration-300 text-[9px] font-bold uppercase tracking-widest border border-primary/10 px-6 py-3 bg-primary/5 hover:bg-primary/20 group relative overflow-hidden"
                                 >
-                                    <span className="relative z-10">Connect Intel</span>
-                                    <Linkedin className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1 relative z-10" />
-                                    <div className="absolute inset-0 bg-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                                    <span className="relative z-10">Email</span>
+                                    <Mail className="w-3.5 h-3.5 transition-transform group-hover:scale-110 relative z-10" />
+                                    <div className="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                                </a>
+                            </Magnetic>
+
+                            <Magnetic>
+                                <a
+                                    href={`tel:${founder.phone.replace(/\s+/g, '')}`}
+                                    className="inline-flex items-center gap-3 text-primary/80 hover:text-foreground transition-all duration-300 text-[9px] font-bold uppercase tracking-widest border border-primary/10 px-6 py-3 bg-primary/5 hover:bg-primary/20 group relative overflow-hidden"
+                                >
+                                    <span className="relative z-10">Call</span>
+                                    <Phone className="w-3.5 h-3.5 transition-transform group-hover:scale-110 relative z-10" />
+                                    <div className="absolute inset-0 bg-primary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                                 </a>
                             </Magnetic>
                         </div>
@@ -177,9 +195,6 @@ export default function Founder() {
 
     return (
         <section ref={container} id="founder" className="relative pt-32 pb-32 bg-background border-b border-border/50">
-
-            {/* Background Starfield styling */}
-            <div className="absolute inset-0 star-bg pointer-events-none opacity-50" />
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-24 relative z-10">
                 <MotionReveal className="text-center">

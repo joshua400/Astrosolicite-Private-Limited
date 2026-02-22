@@ -46,10 +46,8 @@ const Index = () => {
   }, [mouseX, mouseY]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden noise-bg selection:bg-primary/30 cursor-none">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/30 cursor-none">
       <CustomCursor mouseX={mouseX} mouseY={mouseY} />
-      <BackgroundDecor />
-      <div className="scanline pointer-events-none" />
       <Navbar />
 
       {/* ── [HOME] Hero Section ── */}
@@ -120,7 +118,6 @@ const Index = () => {
 
       {/* ── [TECHNOLOGY] OSDSS ── */}
       <section id="technology" className="py-32 px-6 relative border-y border-border">
-        <OrbitalDecor />
         <div className="max-w-7xl mx-auto relative z-10">
           <MotionReveal className="text-center mb-24">
             <span className="text-primary text-[11px] font-mono-tech tracking-[0.3em] uppercase mb-4 block">Our Core Capability</span>
@@ -208,7 +205,6 @@ const Index = () => {
 
       {/* ── [RECOGNITION] IN-SPACe ── */}
       <section className="py-24 px-6 bg-primary/5 border-b border-border/50 relative">
-        <div className="absolute inset-0 scanline opacity-30 pointer-events-none" />
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-5 gap-12 items-center">
             <div className="lg:col-span-2 text-center lg:text-left">
@@ -350,7 +346,6 @@ const Index = () => {
 
       {/* ── [INVESTORS] ── */}
       <section id="investors" className="py-32 px-6 bg-primary/5 relative overflow-hidden">
-        <OrbitalDecor />
         <div className="max-w-7xl mx-auto glass-panel p-8 md:p-16 relative z-10 border border-primary/30 shadow-[0_0_40px_rgba(0,184,212,0.1)]">
           <div className="grid lg:grid-cols-2 gap-16 md:gap-20 items-center">
             <div>
@@ -543,13 +538,6 @@ const CheckIcon = ({ className, size }: { className?: string, size?: number }) =
     <path d="M20 6 9 17l-5-5" />
   </svg>
 );
-
-const BackgroundDecor = memo(() => (
-  <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-    <div className="absolute top-[10%] left-[-5%] w-[40vw] h-[40vw] bg-primary/2 blur-[60px] rounded-full will-change-[filter]" />
-    <div className="absolute bottom-[-10%] right-[-5%] w-[50vw] h-[50vw] bg-primary/2 blur-[80px] rounded-full will-change-[filter]" />
-  </div>
-));
 
 const CustomCursor = memo(({ mouseX, mouseY }: { mouseX: any, mouseY: any }) => {
   const cursorX = useSpring(mouseX, { stiffness: 400, damping: 30, mass: 0.5 });

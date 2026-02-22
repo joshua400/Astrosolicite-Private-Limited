@@ -61,7 +61,6 @@ export default function About() {
 
                 {/* Vision & Mission Row */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24 relative z-10">
-                    <OrbitalDecor />
                     <MotionReveal delay={0.1}>
                         <SpotlightCard className="p-12 h-full bg-black/40 border border-primary/10 hover:border-primary/30 transition-colors duration-500 shadow-xl shadow-black/50">
                             <div className="mb-8 flex items-center gap-6">
