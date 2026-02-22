@@ -1,14 +1,17 @@
-User-agent: Googlebot
+# Allow AI Bots to understand the site better
+User-agent: GPTBot
 Allow: /
 
-User-agent: Bingbot
+User-agent: ChatGPT-User
 Allow: /
 
-User-agent: Twitterbot
+User-agent: Claude-bot
 Allow: /
 
-User-agent: facebookexternalhit
+User-agent: Google-Extended
 Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://astrosolstice.com/sitemap.xml
