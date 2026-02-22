@@ -1,4 +1,4 @@
-# Astrosolicite Private Limited
+# Astrosolstice Private Limited
 
 **Protecting Orbits. Preserving Futures.**
 
@@ -25,4 +25,4 @@ npm run dev
 npm run build
 ```
 
-## © 2026 Astrosolicite Private Limited. All rights reserved
+## © 2026 Astrosolstice Private Limited. All rights reserved
