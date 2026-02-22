@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/logo.jpeg";
+import logo from "@/assets/logo-new.jpeg";
 import { Magnetic, TextScramble, CharReveal } from "@/hooks/useAnimations";
 
 const navItems = [
@@ -34,8 +34,8 @@ export const Navbar = () => {
       <div className="flex items-center justify-between w-full min-h-[40px]">
         {/* Logo */}
         <a href="#home" className="flex items-center gap-3 group">
-          <div className="w-11 h-11 relative overflow-hidden rounded-md border border-primary/20 bg-white flex items-center justify-center p-0.5 shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:border-primary/50 transition-colors duration-500">
-            <img src={logo} alt="Astrosolstice Logo" className="w-full h-full object-contain" />
+          <div className="w-14 h-14 relative overflow-hidden rounded-md flex items-center justify-center p-0 transition-colors duration-500">
+            <img src={logo} alt="Astrosolstice Logo" className="w-full h-full object-cover" />
           </div>
           <div className="flex flex-col justify-center">
             <div className="flex items-baseline gap-1 md:gap-1.5 leading-none">

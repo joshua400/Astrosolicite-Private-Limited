@@ -13,7 +13,7 @@ import {
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { MotionReveal, SpotlightCard, use3DTilt, TextScramble, Magnetic, OrbitalDecor, CharReveal } from "@/hooks/useAnimations";
 import heroVideo from "@/assets/hero-reveal.mp4";
-import logo from "@/assets/logo.jpeg";
+import logo from "@/assets/logo-new.jpeg";
 
 const springConfig = { stiffness: 150, damping: 25, restDelta: 0.001 };
 
