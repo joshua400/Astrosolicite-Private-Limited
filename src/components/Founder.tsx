@@ -13,7 +13,7 @@ const founders = [
         name: 'Mr. S. Venkatesh',
         role: 'Founder – Space Systems Architect',
         image: VenkateshImg,
-        email: 'mitvenkatesh@gmail.com',
+        email: 'directorvenkatesh@astrosolstice.com',
         phone: '+91 97899 93066',
         bio: 'Aerospace systems architect bridging structural research, CFD modeling, and hypervelocity protection engineering. Pursuing PhD from Sathyabama Institute with over 35+ international publications and 10+ granted patents. Selected for IN-SPACe Innovate Phase.',
         skills: [
@@ -29,7 +29,7 @@ const founders = [
         name: 'Mr. G. Madhan Kumar',
         role: 'Co-Founder – Operations & Technical Lead',
         image: MadhanImg,
-        email: 'madhanaero701@gmail.com',
+        email: 'directormadhankumar@astrosolstice.com',
         phone: '+91 84894 02901',
         bio: 'Focuses on operational strategies, aerospace engineering integration, and the technical development of orbital protection frameworks. Brings deep expertise in system implementation and engineering operations.',
         skills: [
@@ -45,7 +45,7 @@ const founders = [
         name: 'Dr. J. Hemanandh',
         role: 'Co-Founder – Strategic Systems Advisory',
         image: HemanandhImg,
-        email: 'hemanandh123@gmail.com',
+        email: 'directorhemanandh@astrosolstice.com',
         phone: '+91 73388 89562',
         bio: 'Provides strategic governance and technical advisory for deep-tech orbital systems. Ensures mission-critical alignments and validation of space-grade architectures.',
         skills: [
@@ -61,7 +61,7 @@ const founders = [
         name: 'Dr. S. Ganesan',
         role: 'Co-Founder – Structural Validation Advisory',
         image: GanesanImg,
-        email: 'gansumaa@gmail.com',
+        email: 'directorganesan@astrosolstice.com',
         phone: '+91 98846 17947',
         bio: 'Advises on structural verification, thermal resiliency, and system engineering. Guides the academic-industrial research transition into viable orbital deployment systems.',
         skills: [
